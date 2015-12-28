@@ -21,10 +21,32 @@
 
 package com.github.fracpete.screencast4j;
 
-import javax.swing.JFrame;
+import com.github.fracpete.screencast4j.gui.BaseFrame;
+import com.github.fracpete.screencast4j.gui.ScreencastPanel;
+
+import java.awt.BorderLayout;
 
 public class Main
-  extends JFrame {
+  extends BaseFrame {
+
+  private static final long serialVersionUID = -276357211631040195L;
+
+  /** the screencast panel. */
+  protected ScreencastPanel m_PanelScreencast;
+
+  /**
+   * Initializes the widgets.
+   */
+  @Override
+  protected void initGUI() {
+    super.initGUI();
+
+    getContentPane().setLayout(new BorderLayout());
+    m_PanelScreencast = new ScreencastPanel();
+    getContentPane().add(m_PanelScreencast, BorderLayout.CENTER);
+    setJMenuBar(m_PanelScreencast.getMenuBar());
+    setSize(1024, 768);
+  }
 
   /**
    * Starts the main GUI.
@@ -32,6 +54,8 @@ public class Main
    * @param args ignored
    */
   public static void main(String[] args) {
-
+    Main frame = new Main();
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
   }
 }
