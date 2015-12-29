@@ -124,7 +124,9 @@ public class XuggleScreenRecorder
   @Override
   protected void doStop() throws Exception {
     super.doStop();
-    m_Writer.close();
+    synchronized(m_Writer) {
+      m_Writer.close();
+    }
     m_Writer = null;
     // convert into final format
     if (m_Format != CAPTURE_FORMAT) {
@@ -139,8 +141,10 @@ public class XuggleScreenRecorder
    * @throws Exception	if writing fails
    */
   protected void writeFrame(BufferedImage frame) throws Exception {
-    if (!isStopped())
-      m_Writer.encodeVideo(0, frame, System.currentTimeMillis() - m_StartTime, TimeUnit.MILLISECONDS);
+    synchronized(m_Writer) {
+      if (!isStopped())
+	m_Writer.encodeVideo(0, frame, System.currentTimeMillis() - m_StartTime, TimeUnit.MILLISECONDS);
+    }
   }
 
   /**
@@ -148,22 +152,15 @@ public class XuggleScreenRecorder
    *
    * @param args	ignored
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     final XuggleScreenRecorder rec = new XuggleScreenRecorder();
     rec.setOutput(new File(System.getProperty("java.io.tmpdir") + File.separator + "screen.ts"));
     rec.setCaptureMouse(true);
     rec.setFramesPerSecond(25);
     rec.setUp();
     rec.start();
-    new Thread(() -> {
-      try {
-	for (int i = 0; i < 200; i++)
-	  Thread.sleep(100);
-	rec.stop();
-      }
-      catch (Exception e) {
-	e.printStackTrace();
-      }
-    }).start();
+    for (int i = 0; i < 200; i++)
+      Thread.sleep(100);
+    rec.stop();
   }
 }
