@@ -15,7 +15,7 @@
 
 /**
  * SoundRecorder.java
- * Copyright (C) 2015 University of Waikato, Hamilton, NZ
+ * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
  */
 
 package com.github.fracpete.screencast4j.record;
