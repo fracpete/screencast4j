@@ -20,8 +20,6 @@
 
 package com.github.fracpete.screencast4j.record;
 
-import java.io.File;
-
 /**
  * Interface for recorders.
  *
@@ -29,20 +27,6 @@ import java.io.File;
  * @version $Revision$
  */
 public interface Recorder {
-
-  /**
-   * Sets the output file to use.
-   *
-   * @param value	the output file
-   */
-  public void setOutput(File value);
-
-  /**
-   * Returns the output file.
-   *
-   * @return		the output file
-   */
-  public File getOutput();
 
   /**
    * Configures the recorder.

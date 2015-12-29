@@ -22,8 +22,6 @@ package com.github.fracpete.screencast4j.record;
 
 import com.googlecode.jfilechooserbookmarks.core.Utils;
 
-import java.io.File;
-
 /**
  * Ancestor for recorders.
  *
@@ -35,9 +33,6 @@ public abstract class AbstractRecorder
 
   /** the state. */
   protected RecorderState m_State;
-
-  /** the output file. */
-  protected File m_Output;
 
   /**
    * Initializes the recorder.
@@ -51,7 +46,6 @@ public abstract class AbstractRecorder
    * Initializes members.
    */
   protected void initialize() {
-    m_Output = new File(".");
   }
 
   /**
@@ -60,13 +54,6 @@ public abstract class AbstractRecorder
   public void reset() {
     m_State = RecorderState.NONE;
   }
-
-  /**
-   * Returns the default file extension to use.
-   *
-   * @return		the extension (no dot)
-   */
-  public abstract String getDefaultExtension();
 
   /**
    * Prefixes the error messages with the class name, outputs it on stderr
@@ -97,34 +84,11 @@ public abstract class AbstractRecorder
   }
 
   /**
-   * Sets the output file to use.
-   *
-   * @param value	the output file
-   */
-  public void setOutput(File value) {
-    if (m_State == RecorderState.NONE)
-      m_Output = value;
-    else
-      printError("Cannot set output file once recording has commenced!");
-  }
-
-  /**
-   * Returns the output file.
-   *
-   * @return		the output file
-   */
-  public File getOutput() {
-    return m_Output;
-  }
-
-  /**
    * Performs a check of the setup.
    *
    * @return		null if OK, otherwise error message
    */
   public String setUp() {
-    if (m_Output.isDirectory())
-      return printError("check", "Output is pointing to a directory: " + m_Output);
     return null;
   }
 

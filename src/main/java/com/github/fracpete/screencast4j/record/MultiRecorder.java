@@ -36,14 +36,6 @@ public class MultiRecorder
   protected Recorder[] m_Recorders;
 
   /**
-   * Initializes members.
-   */
-  protected void initialize() {
-    super.initialize();
-    m_Output = new File("dummy");
-  }
-
-  /**
    * Sets the recorders to use.
    *
    * @param value	the recorders
@@ -59,16 +51,6 @@ public class MultiRecorder
    */
   public Recorder[] getRecorders() {
     return m_Recorders;
-  }
-
-  /**
-   * Returns the default file extension to use.
-   *
-   * @return		the extension (no dot)
-   */
-  @Override
-  public String getDefaultExtension() {
-    return "";
   }
 
   /**
