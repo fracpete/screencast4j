@@ -44,6 +44,9 @@ public class SarxosWebcamRecorder
   /** the format used for capturing the video stream. */
   public final static ICodec.ID CAPTURE_FORMAT = ICodec.ID.CODEC_ID_H264;
 
+  /** the ID of the webcam to use. */
+  protected String m_WebcamID;
+
   /** the output format. */
   protected ID m_Format;
 
@@ -52,6 +55,34 @@ public class SarxosWebcamRecorder
 
   /** the writer in use. */
   protected IMediaWriter m_Writer;
+
+  /**
+   * Initializes the members.
+   */
+  @Override
+  protected void initialize() {
+    super.initialize();
+
+    m_WebcamID = "";
+  }
+
+  /**
+   * Sets the ID of the webcam to use. Empty string for default.
+   *
+   * @param value	the ID
+   */
+  public void setWebcamID(String value) {
+    m_WebcamID = value;
+  }
+
+  /**
+   * Returns the ID of the webcam in use. Empty string for default.
+   *
+   * @return		the ID
+   */
+  public String getWebcamID() {
+    return m_WebcamID;
+  }
 
   /**
    * Returns the type of BufferedImage to create.
@@ -85,7 +116,20 @@ public class SarxosWebcamRecorder
 
     if (result == null) {
       try {
-	m_Webcam = Webcam.getDefault();
+	m_Webcam = null;
+	if (m_WebcamID.isEmpty()) {
+	  m_Webcam = Webcam.getDefault();
+	}
+	else {
+	  for (Webcam webcam: Webcam.getWebcams()) {
+	    if (webcam.getName().equals(m_WebcamID)) {
+	      m_Webcam = webcam;
+	      break;
+	    }
+	  }
+	}
+	if (m_Webcam == null)
+	  return "No webcam found for ID: " + (m_WebcamID.isEmpty() ? "-default-" : m_WebcamID);
 	m_Webcam.setViewSize(m_Size);
 	m_Webcam.open();
       }
