@@ -18,7 +18,9 @@
  * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
  */
 
-package com.github.fracpete.screencast4j.record;
+package com.github.fracpete.screencast4j.record.sound;
+
+import com.github.fracpete.screencast4j.record.Recorder;
 
 /**
  * Interface for sound recorders.

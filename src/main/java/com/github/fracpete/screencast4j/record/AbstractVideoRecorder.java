@@ -32,7 +32,7 @@ import java.awt.image.BufferedImage;
  */
 public abstract class AbstractVideoRecorder
   extends AbstractFileBasedRecorder
-  implements VideoRecorder {
+  implements FileBasedRecorder, VideoRecorder {
 
   /** the frames per second to use. */
   protected double m_FramesPerSecond;

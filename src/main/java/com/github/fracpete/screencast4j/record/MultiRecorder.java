@@ -20,6 +20,10 @@
 
 package com.github.fracpete.screencast4j.record;
 
+import com.github.fracpete.screencast4j.record.screen.XuggleScreenRecorder;
+import com.github.fracpete.screencast4j.record.sound.SampledSoundRecorder;
+import com.github.fracpete.screencast4j.record.webcam.SarxosWebcamRecorder;
+
 import java.awt.Dimension;
 import java.io.File;
 

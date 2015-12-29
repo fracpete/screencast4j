@@ -14,44 +14,36 @@
  */
 
 /**
- * SarxosWebcamRecorder.java
+ * XuggleScreenRecorder.java
  * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
  */
 
-package com.github.fracpete.screencast4j.record;
+package com.github.fracpete.screencast4j.record.screen;
 
-import com.github.sarxos.webcam.Webcam;
-import com.googlecode.jfilechooserbookmarks.core.Utils;
+import com.github.fracpete.screencast4j.record.RecorderState;
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;
 import com.xuggle.xuggler.ICodec.ID;
 
-import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Webcam access using Sarxos.
+ * Records the screen.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
  * @version $Revision$
  */
-public class SarxosWebcamRecorder
-  extends AbstractWebcamRecorder {
+public class XuggleScreenRecorder
+  extends AbstractScreenRecorder {
 
   /** the format used for capturing the video stream. */
   public final static ICodec.ID CAPTURE_FORMAT = ICodec.ID.CODEC_ID_H264;
 
-  /** the ID of the webcam to use. */
-  protected String m_WebcamID;
-
   /** the output format. */
   protected ID m_Format;
-
-  /** the webcam in use. */
-  protected Webcam m_Webcam;
 
   /** the writer in use. */
   protected IMediaWriter m_Writer;
@@ -63,25 +55,28 @@ public class SarxosWebcamRecorder
   protected void initialize() {
     super.initialize();
 
-    m_WebcamID = "";
+    m_Format = ID.CODEC_ID_MPEG4;
   }
 
   /**
-   * Sets the ID of the webcam to use. Empty string for default.
+   * Sets the final video format to use.
    *
-   * @param value	the ID
+   * @param value	the format
    */
-  public void setWebcamID(String value) {
-    m_WebcamID = value;
+  public void setFormat(ID value) {
+    if (m_State == RecorderState.NONE)
+      m_Format = value;
+    else
+      printError("Cannot set video format once recording has commenced!");
   }
 
   /**
-   * Returns the ID of the webcam in use. Empty string for default.
+   * Returns the final video format.
    *
-   * @return		the ID
+   * @return		the format
    */
-  public String getWebcamID() {
-    return m_WebcamID;
+  public ID getFormat() {
+    return m_Format;
   }
 
   /**
@@ -115,29 +110,8 @@ public class SarxosWebcamRecorder
     result = super.setUp();
 
     if (result == null) {
-      try {
-	m_Webcam = null;
-	if (m_WebcamID.isEmpty()) {
-	  m_Webcam = Webcam.getDefault();
-	}
-	else {
-	  for (Webcam webcam: Webcam.getWebcams()) {
-	    if (webcam.getName().equals(m_WebcamID)) {
-	      m_Webcam = webcam;
-	      break;
-	    }
-	  }
-	}
-	if (m_Webcam == null)
-	  return "No webcam found for ID: " + (m_WebcamID.isEmpty() ? "-default-" : m_WebcamID);
-	m_Webcam.setViewSize(m_Size);
-	m_Webcam.open();
-      }
-      catch (Exception e) {
-	return "Failed to open webcam: " + Utils.throwableToString(e);
-      }
       m_Writer = ToolFactory.makeWriter(m_Output.getAbsolutePath());
-      m_Writer.addVideoStream(0, 0, CAPTURE_FORMAT, m_Size.width, m_Size.height);
+      m_Writer.addVideoStream(0, 0, CAPTURE_FORMAT, m_ScreenPortion.width, m_ScreenPortion.height);
     }
 
     return result;
@@ -162,18 +136,6 @@ public class SarxosWebcamRecorder
   }
 
   /**
-   * Performs the actual grabbing of the frame.
-   *
-   * @throws Exception	true if failed to grab frame
-   */
-  protected void doGrabFrame() throws Exception {
-    BufferedImage	frame;
-
-    frame = convertBufferedImage(m_Webcam.getImage());
-    writeFrame(frame);
-  }
-
-  /**
    * Writes the frame out to disk.
    *
    * @param frame	the frame
@@ -192,10 +154,10 @@ public class SarxosWebcamRecorder
    * @param args	ignored
    */
   public static void main(String[] args) throws Exception {
-    SarxosWebcamRecorder rec = new SarxosWebcamRecorder();
-    rec.setOutput(new File(System.getProperty("java.io.tmpdir") + File.separator + "webcam.ts"));
+    XuggleScreenRecorder rec = new XuggleScreenRecorder();
+    rec.setOutput(new File(System.getProperty("java.io.tmpdir") + File.separator + "screen.ts"));
+    rec.setCaptureMouse(true);
     rec.setFramesPerSecond(25);
-    rec.setSize(new Dimension(640, 480));
     rec.setUp();
     rec.start();
     for (int i = 0; i < 200; i++)

@@ -14,53 +14,37 @@
  */
 
 /**
- * AbstractSoundRecorder.java
+ * WebcamRecorder.java
  * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
  */
 
-package com.github.fracpete.screencast4j.record;
+package com.github.fracpete.screencast4j.record.webcam;
+
+import com.github.fracpete.screencast4j.record.FileBasedRecorder;
+import com.github.fracpete.screencast4j.record.VideoRecorder;
+
+import java.awt.Dimension;
 
 /**
- * Ancestor for sound recorders.
+ * Interface for webcam recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
  * @version $Revision$
  */
-public abstract class AbstractSoundRecorder
-  extends AbstractFileBasedRecorder
-  implements SoundRecorder {
-
-  /** the frequency to use. */
-  protected float m_Frequency;
+public interface WebcamRecorder
+  extends FileBasedRecorder, VideoRecorder {
 
   /**
-   * Initializes the members.
-   */
-  @Override
-  protected void initialize() {
-    super.initialize();
-
-    m_Frequency = 44100.0f;
-  }
-
-  /**
-   * Sets the frequency to use.
+   * Sets the size to use.
    *
-   * @param value	the frequency
+   * @param value	the size
    */
-  public void setFrequency(float value) {
-    if (value > 0)
-      m_Frequency = value;
-    else
-      printError("Frequency must be > 0, provided: " + value);
-  }
+  public void setSize(Dimension value);
 
   /**
-   * Returns the frequency in use.
+   * Returns the size in use.
    *
-   * @return		the frequency
+   * @return		the size
    */
-  public float getFrequency() {
-    return m_Frequency;
-  }
+  public Dimension getSize();
 }

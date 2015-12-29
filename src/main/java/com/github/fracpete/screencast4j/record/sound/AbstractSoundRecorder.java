@@ -14,25 +14,26 @@
  */
 
 /**
- * AbstractWebcamRecorder.java
+ * AbstractSoundRecorder.java
  * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
  */
 
-package com.github.fracpete.screencast4j.record;
+package com.github.fracpete.screencast4j.record.sound;
 
-import java.awt.Dimension;
+import com.github.fracpete.screencast4j.record.AbstractFileBasedRecorder;
 
 /**
- * TODO: What class does.
+ * Ancestor for sound recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
  * @version $Revision$
  */
-public abstract class AbstractWebcamRecorder
-  extends AbstractVideoRecorder {
+public abstract class AbstractSoundRecorder
+  extends AbstractFileBasedRecorder
+  implements SoundRecorder {
 
-  /** the size to use. */
-  protected Dimension m_Size;
+  /** the frequency to use. */
+  protected float m_Frequency;
 
   /**
    * Initializes the members.
@@ -41,44 +42,27 @@ public abstract class AbstractWebcamRecorder
   protected void initialize() {
     super.initialize();
 
-    m_Size = new Dimension(320, 240);
+    m_Frequency = 44100.0f;
   }
 
   /**
-   * Sets the size to use.
+   * Sets the frequency to use.
    *
-   * @param value	the size
+   * @param value	the frequency
    */
-  public void setSize(Dimension value) {
-    m_Size = value;
+  public void setFrequency(float value) {
+    if (value > 0)
+      m_Frequency = value;
+    else
+      printError("Frequency must be > 0, provided: " + value);
   }
 
   /**
-   * Returns the size in use.
+   * Returns the frequency in use.
    *
-   * @return		the size
+   * @return		the frequency
    */
-  public Dimension getSize() {
-    return m_Size;
-  }
-
-  /**
-   * Pauses the recording process.
-   *
-   * @throws Exception	if pausing fails
-   */
-  @Override
-  protected void doPause() throws Exception {
-    // does nothing
-  }
-
-  /**
-   * Resumes the recording process.
-   *
-   * @throws Exception	if resuming fails
-   */
-  @Override
-  protected void doResume() throws Exception {
-    // does nothing
+  public float getFrequency() {
+    return m_Frequency;
   }
 }

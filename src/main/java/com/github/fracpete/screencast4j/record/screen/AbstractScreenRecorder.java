@@ -18,9 +18,10 @@
  * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
  */
 
-package com.github.fracpete.screencast4j.record;
+package com.github.fracpete.screencast4j.record.screen;
 
 import com.github.fracpete.screencast4j.gui.GUIHelper;
+import com.github.fracpete.screencast4j.record.AbstractVideoRecorder;
 import com.googlecode.jfilechooserbookmarks.core.Utils;
 
 import javax.swing.ImageIcon;
@@ -35,13 +36,14 @@ import java.awt.Robot;
 import java.awt.image.BufferedImage;
 
 /**
- * Records the screen.
+ * Ancestor for screen recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
  * @version $Revision$
  */
 public abstract class AbstractScreenRecorder
-  extends AbstractVideoRecorder {
+  extends AbstractVideoRecorder
+  implements ScreenRecorder {
 
   /** the normal mouse cursor. */
   public final static String MOUSE_CURSOR = "cursor.png";
