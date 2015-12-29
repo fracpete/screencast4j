@@ -26,6 +26,9 @@ import com.github.fracpete.screencast4j.gui.ScreencastPanel;
 
 import java.awt.BorderLayout;
 
+/**
+ * Frame for recording screencasts.
+ */
 public class Main
   extends BaseFrame {
 
@@ -41,6 +44,7 @@ public class Main
   protected void initGUI() {
     super.initGUI();
 
+    setTitle("screencast4j");
     getContentPane().setLayout(new BorderLayout());
     m_PanelScreencast = new ScreencastPanel();
     getContentPane().add(m_PanelScreencast, BorderLayout.CENTER);
