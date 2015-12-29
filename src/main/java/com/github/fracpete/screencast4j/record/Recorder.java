@@ -24,7 +24,6 @@ package com.github.fracpete.screencast4j.record;
  * Interface for recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public interface Recorder {
 

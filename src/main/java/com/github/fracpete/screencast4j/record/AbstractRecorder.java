@@ -26,7 +26,6 @@ import com.googlecode.jfilechooserbookmarks.core.Utils;
  * Ancestor for recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public abstract class AbstractRecorder
   implements Recorder {

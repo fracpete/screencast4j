@@ -30,7 +30,6 @@ import java.io.File;
  * A file chooser dialog with directory bookmarks.
  *
  * @author  fracpete (fracpete at waikato dot ac dot nz)
- * @version $Revision: 8361 $
  */
 public class BaseFileChooser
   extends JFileChooser {

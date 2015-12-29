@@ -25,6 +25,8 @@ import javax.swing.JPanel;
 
 /**
  * Basic panel.
+ *
+ * @author  fracpete (fracpete at waikato dot ac dot nz)
  */
 public class BasePanel
   extends JPanel {

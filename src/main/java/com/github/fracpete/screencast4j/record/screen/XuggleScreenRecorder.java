@@ -34,7 +34,6 @@ import java.util.concurrent.TimeUnit;
  * Records the screen.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public class XuggleScreenRecorder
   extends AbstractScreenRecorder {

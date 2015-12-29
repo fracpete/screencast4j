@@ -28,7 +28,6 @@ import java.awt.Dimension;
  * Ancestor for webcam recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public abstract class AbstractWebcamRecorder
   extends AbstractVideoRecorder

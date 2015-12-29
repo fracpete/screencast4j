@@ -31,7 +31,6 @@ import javax.swing.JFileChooser;
  * Panel for bookmarking directories in a {@link JFileChooser}.
  * 
  * @author  fracpete (fracpete at waikato dot ac dot nz)
- * @version $Revision: 9380 $
  */
 public class FileChooserBookmarksPanel
   extends AbstractBookmarksPanel {
@@ -69,7 +68,6 @@ public class FileChooserBookmarksPanel
    * MEKA-specific factory.
    * 
    * @author  fracpete (fracpete at waikato dot ac dot nz)
-   * @version $Revision: 9380 $
    */
   public static class FileChooserBookmarksFactory
     extends DefaultFactory {

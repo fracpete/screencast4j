@@ -34,7 +34,6 @@ import java.io.File;
  * For recording sound using Java's sampled.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public class SampledSoundRecorder
   extends AbstractSoundRecorder {

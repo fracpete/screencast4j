@@ -27,7 +27,6 @@ import java.awt.GraphicsConfiguration;
  * A frame that loads the size and location from the props file automatically.
  *
  * @author  fracpete (fracpete at waikato dot ac dot nz)
- * @version $Revision: 11583 $
  */
 public class BaseFrame
   extends JFrame {

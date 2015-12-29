@@ -29,7 +29,6 @@ import java.awt.Dimension;
  * Interface for webcam recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public interface WebcamRecorder
   extends FileBasedRecorder, VideoRecorder {

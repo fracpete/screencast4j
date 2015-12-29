@@ -24,7 +24,6 @@ package com.github.fracpete.screencast4j.record;
  * Runnable for grabbing frames.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public class FrameGrabber
   implements Runnable {

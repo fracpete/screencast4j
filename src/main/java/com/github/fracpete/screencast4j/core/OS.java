@@ -23,7 +23,6 @@ package com.github.fracpete.screencast4j.core;
  * Helper class for operating system related stuff.
  *
  * @author  fracpete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public class OS {
 

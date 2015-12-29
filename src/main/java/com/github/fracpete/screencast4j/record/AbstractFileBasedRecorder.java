@@ -26,7 +26,6 @@ import java.io.File;
  * Ancestor for file-based recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public abstract class AbstractFileBasedRecorder
   extends AbstractRecorder

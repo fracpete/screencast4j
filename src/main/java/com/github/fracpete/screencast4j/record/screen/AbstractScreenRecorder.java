@@ -39,7 +39,6 @@ import java.awt.image.BufferedImage;
  * Ancestor for screen recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public abstract class AbstractScreenRecorder
   extends AbstractVideoRecorder

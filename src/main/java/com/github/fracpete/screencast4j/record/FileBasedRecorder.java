@@ -26,7 +26,6 @@ import java.io.File;
  * Interface for file-based recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public interface FileBasedRecorder
   extends Recorder {

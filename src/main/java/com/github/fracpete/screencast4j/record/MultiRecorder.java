@@ -31,7 +31,6 @@ import java.io.File;
  * Combines multiple recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public class MultiRecorder
   extends AbstractRecorder {

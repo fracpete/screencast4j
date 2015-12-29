@@ -27,7 +27,6 @@ import java.io.File;
  * Helper class related to the project and its "home" directory.
  *
  * @author fracpete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public class Project {
 

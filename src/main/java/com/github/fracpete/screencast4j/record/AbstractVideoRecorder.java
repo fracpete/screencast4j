@@ -28,7 +28,6 @@ import java.awt.image.BufferedImage;
  * Ancestor for video recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public abstract class AbstractVideoRecorder
   extends AbstractFileBasedRecorder

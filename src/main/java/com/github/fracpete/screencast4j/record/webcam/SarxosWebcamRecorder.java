@@ -36,7 +36,6 @@ import java.util.concurrent.TimeUnit;
  * Webcam access using Sarxos.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public class SarxosWebcamRecorder
   extends AbstractWebcamRecorder {

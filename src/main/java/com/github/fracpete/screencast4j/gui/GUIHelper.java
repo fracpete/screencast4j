@@ -35,7 +35,6 @@ import java.net.URL;
  * A little helper class for GUI related stuff.
  *
  * @author  fracpete (fracpete at waikato dot ac dot nz)
- * @version $Revision: 8793 $
  */
 public class GUIHelper {
 

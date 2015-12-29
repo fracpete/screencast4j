@@ -27,7 +27,6 @@ import com.github.fracpete.screencast4j.record.VideoRecorder;
  * Interface for screen recorders.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public interface ScreenRecorder
   extends FileBasedRecorder, VideoRecorder {
