@@ -133,8 +133,11 @@ public class MultiRecorder
     webcam.setOutput(new File(System.getProperty("java.io.tmpdir") + File.separator + "webcam.ts"));
     webcam.setFramesPerSecond(25);
     webcam.setSize(new Dimension(640, 480));
+    SampledSoundRecorder sound = new SampledSoundRecorder();
+    sound.setOutput(new File(System.getProperty("java.io.tmpdir") + File.separator + "sound.wav"));
+    sound.setFrequency(44100.0f);
     MultiRecorder multi = new MultiRecorder();
-    multi.setRecorders(new Recorder[]{screen, webcam});
+    multi.setRecorders(new Recorder[]{screen, webcam, sound});
     multi.setUp();
     multi.start();
     for (int i = 0; i < 200; i++)
