@@ -153,7 +153,7 @@ public class XuggleScreenRecorder
    * @param args	ignored
    */
   public static void main(String[] args) throws Exception {
-    final XuggleScreenRecorder rec = new XuggleScreenRecorder();
+    XuggleScreenRecorder rec = new XuggleScreenRecorder();
     rec.setOutput(new File(System.getProperty("java.io.tmpdir") + File.separator + "screen.ts"));
     rec.setCaptureMouse(true);
     rec.setFramesPerSecond(25);

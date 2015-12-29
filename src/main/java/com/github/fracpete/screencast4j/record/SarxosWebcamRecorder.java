@@ -148,7 +148,7 @@ public class SarxosWebcamRecorder
    * @param args	ignored
    */
   public static void main(String[] args) throws Exception {
-    final SarxosWebcamRecorder rec = new SarxosWebcamRecorder();
+    SarxosWebcamRecorder rec = new SarxosWebcamRecorder();
     rec.setOutput(new File(System.getProperty("java.io.tmpdir") + File.separator + "webcam.ts"));
     rec.setFramesPerSecond(25);
     rec.setSize(new Dimension(640, 480));
