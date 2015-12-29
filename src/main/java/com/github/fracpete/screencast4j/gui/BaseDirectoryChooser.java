@@ -127,7 +127,7 @@ public class BaseDirectoryChooser
     if (accessory != null)
       setAccessory(accessory);
 
-    showBookmarks(true);
+    showBookmarks(false);
     setPreferredSize(new Dimension(400, 500));
   }
 
