@@ -40,6 +40,16 @@ public class MultiRecorder
   protected Recorder[] m_Recorders;
 
   /**
+   * Initializes members.
+   */
+  @Override
+  protected void initialize() {
+    super.initialize();
+
+    m_Recorders = new Recorder[0];
+  }
+
+  /**
    * Sets the recorders to use.
    *
    * @param value	the recorders
@@ -69,6 +79,8 @@ public class MultiRecorder
     result = super.setUp();
 
     if (result == null) {
+      if (m_Recorders.length == 0)
+	return "No recorders defined!";
       for (Recorder rec: m_Recorders) {
 	result = rec.setUp();
 	if (result != null)
