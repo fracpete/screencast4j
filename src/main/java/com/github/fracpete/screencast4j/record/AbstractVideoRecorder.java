@@ -146,6 +146,8 @@ public abstract class AbstractVideoRecorder
    * @return		null if OK, otherwise error message
    */
   public synchronized String grabFrame() {
+    if (!isRecording())
+      return "Not recording";
     try {
       doGrabFrame();
       return null;
