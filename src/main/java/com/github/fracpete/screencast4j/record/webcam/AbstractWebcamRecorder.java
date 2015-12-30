@@ -33,6 +33,9 @@ public abstract class AbstractWebcamRecorder
   extends AbstractVideoRecorder
   implements WebcamRecorder {
 
+  /** the ID of the webcam to use. */
+  protected String m_WebcamID;
+
   /** the size to use. */
   protected Dimension m_Size;
 
@@ -43,7 +46,26 @@ public abstract class AbstractWebcamRecorder
   protected void initialize() {
     super.initialize();
 
-    m_Size = new Dimension(320, 240);
+    m_WebcamID = "";
+    m_Size     = new Dimension(320, 240);
+  }
+
+  /**
+   * Sets the ID of the webcam to use. Empty string for default.
+   *
+   * @param value	the ID
+   */
+  public void setWebcamID(String value) {
+    m_WebcamID = value;
+  }
+
+  /**
+   * Returns the ID of the webcam in use. Empty string for default.
+   *
+   * @return		the ID
+   */
+  public String getWebcamID() {
+    return m_WebcamID;
   }
 
   /**

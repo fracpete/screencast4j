@@ -20,6 +20,7 @@
 
 package com.github.fracpete.screencast4j.record.sound;
 
+import com.github.fracpete.screencast4j.record.FileBasedRecorder;
 import com.github.fracpete.screencast4j.record.Recorder;
 
 /**
@@ -28,7 +29,7 @@ import com.github.fracpete.screencast4j.record.Recorder;
  * @author FracPete (fracpete at waikato dot ac dot nz)
  */
 public interface SoundRecorder
-  extends Recorder {
+  extends Recorder, FileBasedRecorder {
 
   /**
    * Sets the frequency to use.

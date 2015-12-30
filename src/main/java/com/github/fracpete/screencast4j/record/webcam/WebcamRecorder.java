@@ -34,6 +34,20 @@ public interface WebcamRecorder
   extends FileBasedRecorder, VideoRecorder {
 
   /**
+   * Sets the ID of the webcam to use. Empty string for default.
+   *
+   * @param value	the ID
+   */
+  public void setWebcamID(String value);
+
+  /**
+   * Returns the ID of the webcam in use. Empty string for default.
+   *
+   * @return		the ID
+   */
+  public String getWebcamID();
+
+  /**
    * Sets the size to use.
    *
    * @param value	the size
