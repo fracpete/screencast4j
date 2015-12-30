@@ -234,6 +234,14 @@ public abstract class AbstractRecorder
   }
 
   /**
+   * Performs any left over clean up operations.
+   * <br>
+   * Default implementation does nothing.
+   */
+  public void cleanUp() {
+  }
+
+  /**
    * Outputs a short description of the state.
    *
    * @return		the state

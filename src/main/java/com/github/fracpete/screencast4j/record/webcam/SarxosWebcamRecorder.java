@@ -49,6 +49,9 @@ public class SarxosWebcamRecorder
   /** the webcam in use. */
   protected Webcam m_Webcam;
 
+  /** the webcam in use for grabbing images. */
+  protected Webcam m_GrabWebcam;
+
   /** the writer in use. */
   protected IMediaWriter m_Writer;
 
@@ -133,6 +136,11 @@ public class SarxosWebcamRecorder
   @Override
   protected void doStop() throws Exception {
     super.doStop();
+    if (m_Webcam != null) {
+      if (m_Webcam.isOpen())
+	m_Webcam.close();
+      m_Webcam = null;
+    }
     synchronized(m_Writer) {
       m_Writer.close();
     }
@@ -163,12 +171,18 @@ public class SarxosWebcamRecorder
    */
   protected BufferedImage doGrabImage() throws Exception {
     BufferedImage	result;
-    Webcam		webcam;
 
-    webcam = getWebcam();
-    if (webcam == null)
+    if (m_GrabWebcam == null)
+      m_GrabWebcam = getWebcam();
+    if (m_GrabWebcam == null)
       throw new Exception("Failed to obtain webcam instance!");
-    result = convertBufferedImage(webcam.getImage());
+    if (!m_GrabWebcam.isOpen() || !m_GrabWebcam.getViewSize().equals(m_Size)) {
+      if (m_GrabWebcam.isOpen())
+	m_GrabWebcam.close();
+      m_GrabWebcam.setViewSize(m_Size);
+      m_GrabWebcam.open();
+    }
+    result = convertBufferedImage(m_GrabWebcam.getImage());
 
     return result;
   }
@@ -183,6 +197,18 @@ public class SarxosWebcamRecorder
     synchronized(m_Writer) {
       if (!isStopped())
 	m_Writer.encodeVideo(0, frame, System.currentTimeMillis() - m_StartTime, TimeUnit.MILLISECONDS);
+    }
+  }
+
+  /**
+   * Performs any left over clean up operations.
+   */
+  public void cleanUp() {
+    super.cleanUp();
+    if (m_GrabWebcam != null) {
+      if (m_GrabWebcam.isOpen())
+	m_GrabWebcam.close();
+      m_GrabWebcam = null;
     }
   }
 

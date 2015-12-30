@@ -81,4 +81,9 @@ public interface Recorder {
    * @return		true if stopped
    */
   public boolean isStopped();
+
+  /**
+   * Performs any left over clean up operations.
+   */
+  public void cleanUp();
 }
