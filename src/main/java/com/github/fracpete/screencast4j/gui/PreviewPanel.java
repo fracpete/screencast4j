@@ -82,8 +82,6 @@ public class PreviewPanel
 
 	BufferedImage image = m_Recorder.grabImage();
 	m_PanelImage.setImage(image);
-	// TODO
-	System.err.println(m_Recorder.getClass().getSimpleName() + " - Image? " + (image != null));
       }
     });
   }
