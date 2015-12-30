@@ -16,6 +16,7 @@
 /*
  * GUIHelper.java
  * Copyright (C) 2008-2014 University of Waikato, Hamilton, New Zealand
+ * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
  */
 
 package com.github.fracpete.screencast4j.gui;

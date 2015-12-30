@@ -13,7 +13,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
+/*
  * FileChooserBookmarksPanel.java
  * Copyright (C) 2014-2015 University of Waikato, Hamilton, New Zealand
  */

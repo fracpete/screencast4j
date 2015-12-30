@@ -13,7 +13,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
+/*
  * RecorderState.java
  * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
  */
@@ -22,6 +22,8 @@ package com.github.fracpete.screencast4j.record;
 
 /**
  * The state of the recorder.
+ *
+ * @author FracPete (fracpete at waikato dot ac dot nz)
  */
 public enum RecorderState {
   NONE,

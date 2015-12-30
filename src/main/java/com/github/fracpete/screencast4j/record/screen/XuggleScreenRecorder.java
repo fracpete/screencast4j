@@ -13,7 +13,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
+/*
  * XuggleScreenRecorder.java
  * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
  */

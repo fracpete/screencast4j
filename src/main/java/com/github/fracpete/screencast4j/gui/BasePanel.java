@@ -14,7 +14,7 @@
  */
 
 /*
- * ScreencastPanel.java
+ * BasePanel.java
  * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
  *
  */

@@ -13,7 +13,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
+/*
  * MultiRecorder.java
  * Copyright (C) 2015 University of Waikato, Hamilton, NZ
  */
