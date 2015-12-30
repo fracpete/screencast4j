@@ -46,7 +46,7 @@ public class Main
     m_PanelScreencast = new ScreencastPanel();
     getContentPane().add(m_PanelScreencast, BorderLayout.CENTER);
     setJMenuBar(m_PanelScreencast.getMenuBar());
-    setSize(1024, 768);
+    setSize(600, 400);
   }
 
   /**

@@ -72,6 +72,14 @@ public class ScreencastPanel
 
   public static final String HOMEPAGE = "https://github.com/fracpete/screencast4j";
 
+  public static final String SIZE_SEPARATOR = " x ";
+
+  public static final String SUFFIX_SOUND = "-sound";
+
+  public static final String SUFFIX_WEBCAM = "-webcam";
+
+  public static final String SUFFIX_SCREEN = "-screen";
+
   /** directory chooser for selecting the project. */
   protected JFileChooser m_DirChooser;
 
@@ -285,9 +293,9 @@ public class ScreencastPanel
     // webcams
     m_ModelWebcamAvailable    = new DefaultComboBoxModel<>();
     m_ComboBoxWebcamAvailable = new JComboBox<>(m_ModelWebcamAvailable);
-    m_ComboBoxWebcamAvailable.addActionListener((ActionEvent e) -> refreshWebcamSizes());
     m_ButtonWebcamRefresh = new JButton(GUIHelper.getIcon("refresh.png"));
     m_ButtonWebcamRefresh.addActionListener((ActionEvent e) -> refreshWebcams());
+    m_ComboBoxWebcamAvailable.addActionListener((ActionEvent e) -> refreshWebcamSizes());
     label = new JLabel("Webcam");
     label.setDisplayedMnemonic('c');
     label.setLabelFor(m_CheckBoxWebcam);
@@ -301,6 +309,7 @@ public class ScreencastPanel
     // sizes
     m_ModelWebcamSizes    = new DefaultComboBoxModel<>();
     m_ComboBoxWebcamSizes = new JComboBox<>(m_ModelWebcamSizes);
+    m_ComboBoxWebcamSizes.addActionListener((ActionEvent e) -> updatePreviewRecorders());
     label = new JLabel("Size");
     label.setLabelFor(m_ComboBoxWebcamSizes);
     labels.add(label);
@@ -322,13 +331,15 @@ public class ScreencastPanel
     panel.add(m_SpinnerWebcamFPS);
     panel2.add(panel);
 
+    m_PanelWebcam.add(panel2, BorderLayout.NORTH);
+
     // preview
+    /*
     m_PanelWebcamPreview = new PreviewPanel();
     m_PanelWebcamPreview.setScale(false);
     m_PanelWebcamPreview.setRecorder(new SarxosWebcamRecorder());
-
-    m_PanelWebcam.add(panel2, BorderLayout.NORTH);
     m_PanelWebcam.add(m_PanelWebcamPreview, BorderLayout.CENTER);
+    */
 
     // fix label sizes
     m_PanelWebcam.doLayout();
@@ -427,13 +438,15 @@ public class ScreencastPanel
     panel.add(m_SpinnerScreenFPS);
     panel2.add(panel);
 
+    m_PanelScreen.add(panel2, BorderLayout.NORTH);
+
     // preview
+    /*
     m_PanelScreenPreview = new PreviewPanel();
     m_PanelScreenPreview.setScale(false);
     m_PanelScreenPreview.setRecorder(new XuggleScreenRecorder());
-
-    m_PanelScreen.add(panel2, BorderLayout.NORTH);
     m_PanelScreen.add(m_PanelScreenPreview, BorderLayout.CENTER);
+    */
 
     // fix label sizes
     m_PanelScreen.doLayout();
@@ -481,7 +494,7 @@ public class ScreencastPanel
     newRecording();
     updateTabs();
     refreshWebcams();
-    m_PanelScreenPreview.setUpdate(true);
+    updatePreviewRecorders();
   }
 
   /**
@@ -594,6 +607,33 @@ public class ScreencastPanel
   }
 
   /**
+   * Updates the recorders of the previews.
+   */
+  protected void updatePreviewRecorders() {
+    MultiRecorder	recorder;
+
+    recorder = fieldsToRecorder();
+    for (Recorder rec: recorder.getRecorders()) {
+      if (rec instanceof WebcamRecorder) {
+	if (m_PanelWebcamPreview != null) {
+	  m_PanelWebcamPreview.setUpdate(m_ComboBoxWebcamAvailable.getSelectedIndex() > -1);
+	  if (m_PanelWebcamPreview.getRecorder() != null)
+	    m_PanelWebcamPreview.getRecorder().cleanUp();
+	  m_PanelWebcamPreview.setRecorder((WebcamRecorder) rec);
+	}
+      }
+      if (rec instanceof ScreenRecorder) {
+	if (m_PanelScreenPreview != null) {
+	  m_PanelScreenPreview.setUpdate(true);
+	  if (m_PanelScreenPreview.getRecorder() != null)
+	    m_PanelScreenPreview.getRecorder().cleanUp();
+	  m_PanelScreenPreview.setRecorder((ScreenRecorder) rec);
+	}
+      }
+    }
+  }
+
+  /**
    * Maps the recorder setup onto the fields.
    *
    * @param rec		the recorder to map
@@ -624,7 +664,7 @@ public class ScreencastPanel
 	  else
 	    m_ComboBoxWebcamAvailable.setSelectedIndex(0);
 	  if (m_ModelWebcamSizes.getSize() > 0) {
-	    size = (int) webcam.getSize().getWidth() + " x " + (int) webcam.getSize().getHeight();
+	    size = (int) webcam.getSize().getWidth() + SIZE_SEPARATOR + (int) webcam.getSize().getHeight();
 	    if (m_ModelWebcamSizes.getIndexOf(size) > -1)
 	      m_ComboBoxWebcamSizes.setSelectedIndex(m_ModelWebcamSizes.getIndexOf(size));
 	    else
@@ -678,7 +718,7 @@ public class ScreencastPanel
     // sound
     if (m_CheckBoxSound.isSelected()) {
       sound = new SampledSoundRecorder();
-      sound.setOutput(createOutputFile("-sound", sound.getDefaultExtension()));
+      sound.setOutput(createOutputFile(SUFFIX_SOUND, sound.getDefaultExtension()));
       try {
 	sound.setFrequency(Float.valueOf(m_TextSoundFrequency.getText()));
       }
@@ -691,12 +731,12 @@ public class ScreencastPanel
     // webcam
     if (m_CheckBoxWebcam.isSelected()) {
       webcam = new SarxosWebcamRecorder();
-      webcam.setOutput(createOutputFile("-webcam", webcam.getDefaultExtension()));
+      webcam.setOutput(createOutputFile(SUFFIX_WEBCAM, webcam.getDefaultExtension()));
       if (m_ComboBoxWebcamAvailable.getSelectedIndex() > -1)
 	webcam.setWebcamID((String) m_ComboBoxWebcamAvailable.getSelectedItem());
       if (m_ComboBoxWebcamSizes.getSelectedIndex() > -1) {
 	try {
-	  parts = ((String) m_ComboBoxWebcamSizes.getSelectedItem()).split(" x ");
+	  parts = ((String) m_ComboBoxWebcamSizes.getSelectedItem()).split(SIZE_SEPARATOR);
 	  if (parts.length == 2) {
 	    size = new Dimension(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]));
 	    webcam.setSize(size);
@@ -713,7 +753,7 @@ public class ScreencastPanel
     // screen
     if (m_CheckBoxScreen.isSelected()) {
       screen = new XuggleScreenRecorder();
-      screen.setOutput(createOutputFile("-screen", screen.getDefaultExtension()));
+      screen.setOutput(createOutputFile(SUFFIX_SCREEN, screen.getDefaultExtension()));
       screen.setX(((Number) m_SpinnerScreenX.getValue()).intValue());
       screen.setY(((Number) m_SpinnerScreenY.getValue()).intValue());
       screen.setWidth(((Number) m_SpinnerScreenWidth.getValue()).intValue());
@@ -765,6 +805,12 @@ public class ScreencastPanel
       return;
     }
 
+    // pause previews
+    if (m_PanelWebcamPreview != null)
+      m_PanelWebcamPreview.setUpdate(false);
+    if (m_PanelScreenPreview != null)
+      m_PanelScreenPreview.setUpdate(false);
+
     // minimize frame
     if (GUIHelper.getParentFrame(this) != null)
       GUIHelper.getParentFrame(this).setExtendedState(JFrame.ICONIFIED);
@@ -788,6 +834,10 @@ public class ScreencastPanel
    */
   public void stopRecording() {
     m_Recorder.stop();
+    if (m_PanelWebcamPreview != null)
+      m_PanelWebcamPreview.setUpdate(true);
+    if (m_PanelScreenPreview != null)
+      m_PanelScreenPreview.setUpdate(true);
     updateMenu();
   }
 
@@ -837,7 +887,7 @@ public class ScreencastPanel
       m_ModelWebcamAvailable.addElement(webcam.getName());
     if (m_ModelWebcamAvailable.getSize() > 0)
       m_ComboBoxWebcamAvailable.setSelectedIndex(0);
-    m_PanelWebcamPreview.setUpdate(m_ComboBoxWebcamAvailable.getSelectedIndex() > -1);
+    updatePreviewRecorders();
   }
 
   /**
@@ -855,9 +905,10 @@ public class ScreencastPanel
     for (Webcam webcam: Webcam.getWebcams()) {
       if (id.equals(webcam.getName())) {
 	for (Dimension dim: webcam.getViewSizes())
-	  m_ModelWebcamSizes.addElement((int) dim.getWidth() + " x " + (int) dim.getHeight());
+	  m_ModelWebcamSizes.addElement((int) dim.getWidth() + SIZE_SEPARATOR + (int) dim.getHeight());
 	break;
       }
     }
+    updatePreviewRecorders();
   }
 }
