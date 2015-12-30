@@ -141,10 +141,10 @@ public class ImagePanel
     panel.add(m_LabelCoordinates);
     add(panel, BorderLayout.SOUTH);
 
-    m_PaintPanel.addMouseListener(new MouseAdapter() {
+    m_PaintPanel.addMouseMotionListener(new MouseAdapter() {
       @Override
       public void mouseMoved(MouseEvent e) {
-	updateCoordinates();
+	updateCoordinates(e.getPoint());
 	super.mouseMoved(e);
       }
     });
@@ -201,14 +201,8 @@ public class ImagePanel
   /**
    * Updates the coordinates.
    */
-  protected void updateCoordinates() {
-    Point	pos;
-
-    pos = m_PaintPanel.getMousePosition();
-    if (pos == null)
-      return;
-
+  protected void updateCoordinates(Point pos) {
     m_LabelCoordinates.setText(
-      "X: " + (int) (pos.getX() + 1) + "   " + "Y: " + (int) (pos.getY() + 1));
+      "X: " + (int) pos.getX() + "   " + "Y: " + (int) pos.getY());
   }
 }
