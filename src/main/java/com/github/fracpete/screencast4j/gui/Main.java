@@ -19,10 +19,7 @@
  *
  */
 
-package com.github.fracpete.screencast4j;
-
-import com.github.fracpete.screencast4j.gui.BaseFrame;
-import com.github.fracpete.screencast4j.gui.ScreencastPanel;
+package com.github.fracpete.screencast4j.gui;
 
 import java.awt.BorderLayout;
 
