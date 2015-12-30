@@ -121,6 +121,9 @@ public abstract class AbstractVideoRecorder
   protected BufferedImage convertBufferedImage(BufferedImage frame) {
     BufferedImage 	newFrame;
 
+    if (frame == null)
+      return frame;
+
     if (frame.getType() != getBufferedImageType()) {
       newFrame = new BufferedImage(frame.getWidth(), frame.getHeight(), getBufferedImageType());
       newFrame.getGraphics().drawImage(frame, 0, 0, null);
@@ -133,7 +136,7 @@ public abstract class AbstractVideoRecorder
   /**
    * Performs the actual grabbing of the frame.
    *
-   * @throws Exception	true if failed to grab frame
+   * @throws Exception	if failed to grab frame
    */
   protected abstract void doGrabFrame() throws Exception;
 
@@ -142,13 +145,36 @@ public abstract class AbstractVideoRecorder
    *
    * @return		null if OK, otherwise error message
    */
-  public String grabFrame() {
+  public synchronized String grabFrame() {
     try {
       doGrabFrame();
       return null;
     }
     catch (Exception e) {
       return printError("grabFrame", "Failed to grab frame!\n" + Utils.throwableToString(e));
+    }
+  }
+
+  /**
+   * Performs the actual grabbing of the image.
+   *
+   * @return 		the image
+   * @throws Exception	if failed to grab image
+   */
+  protected abstract BufferedImage doGrabImage() throws Exception;
+
+  /**
+   * Grabs an image and returns it.
+   *
+   * @return		the image, null if failed to obtain
+   */
+  public BufferedImage grabImage() {
+    try {
+      return doGrabImage();
+    }
+    catch (Exception e) {
+      printError("grabFrame", "Failed to grab frame!\n" + Utils.throwableToString(e));
+      return null;
     }
   }
 }

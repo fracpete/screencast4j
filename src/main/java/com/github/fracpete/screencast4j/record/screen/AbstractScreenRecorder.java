@@ -62,12 +62,6 @@ public abstract class AbstractScreenRecorder
   /** whether to capture the mouse cursor. */
   protected boolean m_CaptureMouse;
 
-  /** the actual width. */
-  protected int m_ActualWidth;
-
-  /** the actual height. */
-  protected int m_ActualHeight;
-
   /** performs the screenshots. */
   protected Robot m_Robot;
 
@@ -106,8 +100,6 @@ public abstract class AbstractScreenRecorder
   public void reset() {
     super.reset();
 
-    m_ActualWidth   = -1;
-    m_ActualHeight  = -1;
     m_ScreenPortion = null;
   }
 
@@ -214,15 +206,40 @@ public abstract class AbstractScreenRecorder
   }
 
   /**
+   * Calculates the screen portion to grab.
+   *
+   * @return		the screen portion
+   */
+  protected Rectangle calcScreenPortion() {
+    Rectangle 		result;
+    GraphicsDevice	device;
+    Rectangle		bounds;
+    int 		actWidth;
+    int 		actHeight;
+
+    if ((m_Width == -1) || (m_Height == -1)) {
+      device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+      bounds = device.getDefaultConfiguration().getBounds();
+      actWidth = (int) bounds.getWidth()  - m_X;
+      actHeight = (int) bounds.getHeight() - m_Y;
+    }
+    else {
+      actWidth = m_Width;
+      actHeight = m_Height;
+    }
+    result = new Rectangle(m_X, m_Y, actWidth, actHeight);
+
+    return result;
+  }
+
+  /**
    * Performs a check of the setup.
    *
    * @return		null if OK, otherwise error message
    */
   @Override
   public String setUp() {
-    String		result;
-    GraphicsDevice	device;
-    Rectangle		bounds;
+    String	result;
 
     result = super.setUp();
 
@@ -233,17 +250,7 @@ public abstract class AbstractScreenRecorder
 	return "Width must be -1 or > 0!";
       if (m_Height == 0)
 	return "Height must be -1 or > 0!";
-      if ((m_Width == -1) || (m_Height == -1)) {
-	device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-	bounds = device.getDefaultConfiguration().getBounds();
-	m_ActualWidth  = (int) bounds.getWidth()  - m_X;
-	m_ActualHeight = (int) bounds.getHeight() - m_Y;
-      }
-      else {
-	m_ActualWidth  = m_Width;
-	m_ActualHeight = m_Height;
-      }
-      m_ScreenPortion = new Rectangle(m_X, m_Y, m_ActualWidth, m_ActualHeight);
+      m_ScreenPortion = calcScreenPortion();
       try {
 	m_Robot = new Robot();
       }
@@ -295,19 +302,15 @@ public abstract class AbstractScreenRecorder
   protected abstract void writeFrame(BufferedImage frame) throws Exception;
 
   /**
-   * Performs the actual grabbing of the frame.
+   * Draws the cursor on the frame, if required.
    *
-   * @throws Exception	true if failed to grab frame
+   * @param frame	the frame to update
+   * @return		the (potentially) updated frame
    */
-  @Override
-  protected void doGrabFrame() throws Exception {
-    BufferedImage 	frame;
+  protected BufferedImage drawCursor(BufferedImage frame) {
     PointerInfo 	pointer;
 
-    frame = convertBufferedImage(m_Robot.createScreenCapture(m_ScreenPortion));
-
-    // draw mouse cursor
-    if (m_CaptureMouse) {
+    if (m_CaptureMouse && (m_Cursor != null)) {
       pointer = MouseInfo.getPointerInfo();
       frame.getGraphics().drawImage(
 	m_Cursor,
@@ -319,7 +322,42 @@ public abstract class AbstractScreenRecorder
 	null);
     }
 
+    return frame;
+  }
+
+  /**
+   * Performs the actual grabbing of the frame.
+   *
+   * @throws Exception	true if failed to grab frame
+   */
+  @Override
+  protected void doGrabFrame() throws Exception {
+    BufferedImage 	frame;
+
+    frame = m_Robot.createScreenCapture(m_ScreenPortion);
+    frame = convertBufferedImage(frame);
+    drawCursor(frame);
     writeFrame(frame);
+  }
+
+  /**
+   * Performs the actual grabbing of the image.
+   *
+   * @return 		the image
+   * @throws Exception	if failed to grab image
+   */
+  protected BufferedImage doGrabImage() throws Exception {
+    BufferedImage	result;
+    Robot		robot;
+    Rectangle 		portion;
+
+    portion = calcScreenPortion();
+    robot   = new Robot();
+    result  = robot.createScreenCapture(portion);
+    result  = convertBufferedImage(result);
+    drawCursor(result);
+
+    return result;
   }
 
   /**
@@ -330,7 +368,6 @@ public abstract class AbstractScreenRecorder
   public String toString() {
     return super.toString()
       + ", x=" + m_X + ", y=" + m_Y
-      + ", w=" + m_Width + ", h=" + m_Height
-      + ", aw=" + m_ActualWidth + ", ah=" + m_ActualHeight;
+      + ", w=" + m_Width + ", h=" + m_Height;
   }
 }

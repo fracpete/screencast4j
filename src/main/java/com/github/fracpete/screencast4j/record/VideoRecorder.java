@@ -20,6 +20,8 @@
 
 package com.github.fracpete.screencast4j.record;
 
+import java.awt.image.BufferedImage;
+
 /**
  * Interface for video recorders.
  *
@@ -47,4 +49,11 @@ public interface VideoRecorder
    * @return		null if OK, otherwise error message
    */
   public String grabFrame();
+
+  /**
+   * Grabs an image and returns it.
+   *
+   * @return		the image, null if failed to obtain
+   */
+  public BufferedImage grabImage();
 }

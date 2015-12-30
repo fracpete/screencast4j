@@ -140,7 +140,7 @@ public abstract class AbstractRecorder
    *
    * @return		null if OK, otherwise error message
    */
-  public String stop() {
+  public synchronized String stop() {
     if ((m_State == RecorderState.RECORDING) || (m_State == RecorderState.PAUSED)) {
       try {
 	doStop();
@@ -177,7 +177,7 @@ public abstract class AbstractRecorder
    *
    * @return		null if OK, otherwise error message
    */
-  public String pause() {
+  public synchronized String pause() {
     if (m_State == RecorderState.RECORDING) {
       try {
 	doPause();
@@ -217,7 +217,7 @@ public abstract class AbstractRecorder
    *
    * @return		null if OK, otherwise error message
    */
-  public String resume() {
+  public synchronized String resume() {
     if (m_State == RecorderState.PAUSED) {
       try {
 	doResume();

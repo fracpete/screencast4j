@@ -72,6 +72,31 @@ public class SarxosWebcamRecorder
   }
 
   /**
+   * Tries to obtain the requested webcam.
+   *
+   * @return		the webcam, null if failed to obtain
+   */
+  protected Webcam getWebcam() {
+    Webcam 	result;
+
+    result = null;
+
+    if (m_WebcamID.isEmpty()) {
+      result = Webcam.getDefault();
+    }
+    else {
+      for (Webcam webcam: Webcam.getWebcams()) {
+	if (webcam.getName().equals(m_WebcamID)) {
+	  result = webcam;
+	  break;
+	}
+      }
+    }
+
+    return result;
+  }
+
+  /**
    * Performs a check of the setup.
    *
    * @return		null if OK, otherwise error message
@@ -84,18 +109,7 @@ public class SarxosWebcamRecorder
 
     if (result == null) {
       try {
-	m_Webcam = null;
-	if (m_WebcamID.isEmpty()) {
-	  m_Webcam = Webcam.getDefault();
-	}
-	else {
-	  for (Webcam webcam: Webcam.getWebcams()) {
-	    if (webcam.getName().equals(m_WebcamID)) {
-	      m_Webcam = webcam;
-	      break;
-	    }
-	  }
-	}
+	m_Webcam = getWebcam();
 	if (m_Webcam == null)
 	  return "No webcam found for ID: " + (m_WebcamID.isEmpty() ? "-default-" : m_WebcamID);
 	m_Webcam.setViewSize(m_Size);
@@ -139,6 +153,24 @@ public class SarxosWebcamRecorder
 
     frame = convertBufferedImage(m_Webcam.getImage());
     writeFrame(frame);
+  }
+
+  /**
+   * Performs the actual grabbing of the image.
+   *
+   * @return 		the image
+   * @throws Exception	if failed to grab image
+   */
+  protected BufferedImage doGrabImage() throws Exception {
+    BufferedImage	result;
+    Webcam		webcam;
+
+    webcam = getWebcam();
+    if (webcam == null)
+      throw new Exception("Failed to obtain webcam instance!");
+    result = convertBufferedImage(webcam.getImage());
+
+    return result;
   }
 
   /**
