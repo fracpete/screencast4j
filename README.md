@@ -1,6 +1,6 @@
 # screencast4j
 
-Simple Java frontend for creating screencasts (desktop and webcam).
+Simple Java frontend for creating screencasts (sound, desktop and webcam).
 
 It allows you to record sound, webcam and screen feeds in separate files.
 These files you can then combine using a 
