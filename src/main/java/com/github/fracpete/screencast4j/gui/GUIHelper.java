@@ -23,13 +23,16 @@ package com.github.fracpete.screencast4j.gui;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dialog;
+import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.net.URL;
+import java.util.List;
 
 /**
  * A little helper class for GUI related stuff.
@@ -309,5 +312,25 @@ public class GUIHelper {
 	}
       }
     }
+  }
+
+  /**
+   * Adjusts the label sizes.
+   *
+   * @param labels	the sizes to adjust
+   */
+  public static void adjustLabelSizes(List<JLabel> labels) {
+    Dimension max;
+
+    // get maximum width
+    max = new Dimension(0, 0);
+    for (JLabel label: labels) {
+      if (max.getWidth() < label.getPreferredSize().getWidth())
+	max = label.getPreferredSize();
+    }
+
+    // adjust labels
+    for (JLabel label: labels)
+      label.setPreferredSize(max);
   }
 }
