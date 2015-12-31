@@ -26,7 +26,7 @@ set ERROR_CODE=0
 @REM Slurp the command line arguments.  This loop allows for an unlimited number
 @REM of arguments (up to the command line limit, anyway).
 set MEMORY=512m
-set MAIN=com.github.fracpete.screencast4j.Main
+set MAIN=com.github.fracpete.screencast4j.gui.Main
 set BASEDIR=%~dp0\..
 set JCMD=java
 if not "%JAVA_HOME%"=="" set JCMD="%JAVA_HOME%\bin\java"

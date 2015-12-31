@@ -89,7 +89,7 @@ fi
 
 # check options
 MEMORY=512m
-MAIN=com.github.fracpete.screencast4j.Main
+MAIN=com.github.fracpete.screencast4j.gui.Main
 
 # launch class
 "$JCMD" \
