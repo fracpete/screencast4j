@@ -556,7 +556,7 @@ public class ScreencastPanel
     menuitem = new JMenuItem("Pause", GUIHelper.getIcon("pause.png"));
     menuitem.setAccelerator(KeyStroke.getKeyStroke("F3"));
     menuitem.addActionListener((ActionEvent e) -> pauseResumeRecording());
-    menu.add(menuitem);
+    //menu.add(menuitem);  // TODO timestamps are currently screwed up
     m_MenuItemPauseResume = menuitem;
 
     // Record/Stop
