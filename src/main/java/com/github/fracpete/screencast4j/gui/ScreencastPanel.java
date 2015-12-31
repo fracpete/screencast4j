@@ -80,6 +80,8 @@ public class ScreencastPanel
 
   public static final String SUFFIX_SCREEN = "-screen";
 
+  protected static boolean PREVIEW_ENABLED = false;
+
   /** directory chooser for selecting the project. */
   protected JFileChooser m_DirChooser;
 
@@ -334,12 +336,12 @@ public class ScreencastPanel
     m_PanelWebcam.add(panel2, BorderLayout.NORTH);
 
     // preview
-    /*
-    m_PanelWebcamPreview = new PreviewPanel();
-    m_PanelWebcamPreview.setScale(false);
-    m_PanelWebcamPreview.setRecorder(new SarxosWebcamRecorder());
-    m_PanelWebcam.add(m_PanelWebcamPreview, BorderLayout.CENTER);
-    */
+    if (PREVIEW_ENABLED) {
+      m_PanelWebcamPreview = new PreviewPanel();
+      m_PanelWebcamPreview.setScale(false);
+      m_PanelWebcamPreview.setRecorder(new SarxosWebcamRecorder());
+      m_PanelWebcam.add(m_PanelWebcamPreview, BorderLayout.CENTER);
+    }
 
     // fix label sizes
     m_PanelWebcam.doLayout();
@@ -441,12 +443,12 @@ public class ScreencastPanel
     m_PanelScreen.add(panel2, BorderLayout.NORTH);
 
     // preview
-    /*
-    m_PanelScreenPreview = new PreviewPanel();
-    m_PanelScreenPreview.setScale(false);
-    m_PanelScreenPreview.setRecorder(new XuggleScreenRecorder());
-    m_PanelScreen.add(m_PanelScreenPreview, BorderLayout.CENTER);
-    */
+    if (PREVIEW_ENABLED) {
+      m_PanelScreenPreview = new PreviewPanel();
+      m_PanelScreenPreview.setScale(false);
+      m_PanelScreenPreview.setRecorder(new XuggleScreenRecorder());
+      m_PanelScreen.add(m_PanelScreenPreview, BorderLayout.CENTER);
+    }
 
     // fix label sizes
     m_PanelScreen.doLayout();
@@ -556,7 +558,7 @@ public class ScreencastPanel
     menuitem = new JMenuItem("Pause", GUIHelper.getIcon("pause.png"));
     menuitem.setAccelerator(KeyStroke.getKeyStroke("F3"));
     menuitem.addActionListener((ActionEvent e) -> pauseResumeRecording());
-    //menu.add(menuitem);  // TODO timestamps are currently screwed up
+    menu.add(menuitem);
     m_MenuItemPauseResume = menuitem;
 
     // Record/Stop
@@ -623,7 +625,7 @@ public class ScreencastPanel
     recorder = fieldsToRecorder();
     for (Recorder rec: recorder.getRecorders()) {
       if (rec instanceof WebcamRecorder) {
-	if (m_PanelWebcamPreview != null) {
+	if (PREVIEW_ENABLED) {
 	  m_PanelWebcamPreview.setUpdate(m_ComboBoxWebcamAvailable.getSelectedIndex() > -1);
 	  if (m_PanelWebcamPreview.getRecorder() != null)
 	    m_PanelWebcamPreview.getRecorder().cleanUp();
@@ -631,7 +633,7 @@ public class ScreencastPanel
 	}
       }
       if (rec instanceof ScreenRecorder) {
-	if (m_PanelScreenPreview != null) {
+	if (PREVIEW_ENABLED) {
 	  m_PanelScreenPreview.setUpdate(true);
 	  if (m_PanelScreenPreview.getRecorder() != null)
 	    m_PanelScreenPreview.getRecorder().cleanUp();
@@ -723,19 +725,6 @@ public class ScreencastPanel
     result    = new MultiRecorder();
     recorders = new ArrayList<>();
 
-    // sound
-    if (m_CheckBoxSound.isSelected()) {
-      sound = new SampledSoundRecorder();
-      sound.setOutput(createOutputFile(SUFFIX_SOUND, sound.getDefaultExtension()));
-      try {
-	sound.setFrequency(Float.valueOf(m_TextSoundFrequency.getText()));
-      }
-      catch (Exception e) {
-	JOptionPane.showMessageDialog(this, "Invalid frequency: " + m_TextSoundFrequency.getText(), "Error", JOptionPane.ERROR_MESSAGE);
-      }
-      recorders.add(sound);
-    }
-
     // webcam
     if (m_CheckBoxWebcam.isSelected()) {
       webcam = new SarxosWebcamRecorder();
@@ -756,6 +745,19 @@ public class ScreencastPanel
       }
       webcam.setFramesPerSecond(((Number) m_SpinnerWebcamFPS.getValue()).intValue());
       recorders.add(webcam);
+    }
+
+    // sound
+    if (m_CheckBoxSound.isSelected()) {
+      sound = new SampledSoundRecorder();
+      sound.setOutput(createOutputFile(SUFFIX_SOUND, sound.getDefaultExtension()));
+      try {
+	sound.setFrequency(Float.valueOf(m_TextSoundFrequency.getText()));
+      }
+      catch (Exception e) {
+	JOptionPane.showMessageDialog(this, "Invalid frequency: " + m_TextSoundFrequency.getText(), "Error", JOptionPane.ERROR_MESSAGE);
+      }
+      recorders.add(sound);
     }
 
     // screen
@@ -822,9 +824,9 @@ public class ScreencastPanel
     }
 
     // pause previews
-    if (m_PanelWebcamPreview != null)
+    if (PREVIEW_ENABLED)
       m_PanelWebcamPreview.setUpdate(false);
-    if (m_PanelScreenPreview != null)
+    if (PREVIEW_ENABLED)
       m_PanelScreenPreview.setUpdate(false);
 
     minimizeFrame();
@@ -850,9 +852,9 @@ public class ScreencastPanel
    */
   public void stopRecording() {
     m_Recorder.stop();
-    if (m_PanelWebcamPreview != null)
+    if (PREVIEW_ENABLED)
       m_PanelWebcamPreview.setUpdate(true);
-    if (m_PanelScreenPreview != null)
+    if (PREVIEW_ENABLED)
       m_PanelScreenPreview.setUpdate(true);
     updateMenu();
   }
@@ -878,9 +880,9 @@ public class ScreencastPanel
   public void close() {
     if (m_Recorder.isRecording() || m_Recorder.isPaused())
       m_Recorder.stop();
-    if (m_PanelScreenPreview != null)
+    if (PREVIEW_ENABLED)
       m_PanelScreenPreview.stop();
-    if (m_PanelWebcamPreview != null)
+    if (PREVIEW_ENABLED)
       m_PanelWebcamPreview.stop();
     GUIHelper.closeParent(this);
   }
