@@ -39,7 +39,7 @@ public class XuggleScreenRecorder
   extends AbstractScreenRecorder {
 
   /** the format used for capturing the video stream. */
-  public final static ICodec.ID CAPTURE_FORMAT = ICodec.ID.CODEC_ID_H264;
+  public final static ICodec.ID CAPTURE_FORMAT = ID.CODEC_ID_MPEG2VIDEO;
 
   /** the output format. */
   protected ID m_Format;
@@ -94,7 +94,7 @@ public class XuggleScreenRecorder
    * @return		the extension (no dot)
    */
   public String getDefaultExtension() {
-    return "ts";
+    return "mpeg";
   }
 
   /**
@@ -143,7 +143,7 @@ public class XuggleScreenRecorder
   protected void writeFrame(BufferedImage frame) throws Exception {
     synchronized(m_Writer) {
       if (!isStopped())
-	m_Writer.encodeVideo(0, frame, System.currentTimeMillis() - m_StartTime, TimeUnit.MILLISECONDS);
+	m_Writer.encodeVideo(0, frame, System.currentTimeMillis() - m_StartTime - m_CumulativePause, TimeUnit.MILLISECONDS);
     }
   }
 

@@ -36,9 +36,6 @@ public abstract class AbstractVideoRecorder
   /** the frames per second to use. */
   protected double m_FramesPerSecond;
 
-  /** the start time. */
-  protected long m_StartTime;
-
   /** the runnable. */
   protected FrameGrabber m_Grabber;
 
@@ -51,16 +48,6 @@ public abstract class AbstractVideoRecorder
 
     m_FramesPerSecond = 25;
     m_Grabber         = null;
-  }
-
-  /**
-   * Resets the recorder's state (but not parameters).
-   */
-  @Override
-  public void reset() {
-    super.reset();
-
-    m_StartTime = 0;
   }
 
   /**
@@ -88,8 +75,7 @@ public abstract class AbstractVideoRecorder
    */
   @Override
   protected void doStart() throws Exception {
-    m_StartTime = System.currentTimeMillis();
-    m_Grabber   = new FrameGrabber(this);
+    m_Grabber = new FrameGrabber(this);
     new Thread(m_Grabber).start();
   }
 

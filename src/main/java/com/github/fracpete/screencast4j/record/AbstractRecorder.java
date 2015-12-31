@@ -33,6 +33,15 @@ public abstract class AbstractRecorder
   /** the state. */
   protected RecorderState m_State;
 
+  /** the start time (msec). */
+  protected long m_StartTime;
+
+  /** the start of pause (msec). */
+  protected long m_StartPause;
+
+  /** the cumulative time the recorder was paused (msec). */
+  protected long m_CumulativePause;
+
   /**
    * Initializes the recorder.
    */
@@ -51,7 +60,9 @@ public abstract class AbstractRecorder
    * Resets the recorder's state (but not parameters).
    */
   public void reset() {
-    m_State = RecorderState.NONE;
+    m_State           = RecorderState.NONE;
+    m_StartTime       = 0;
+    m_CumulativePause = 0;
   }
 
   /**
@@ -107,7 +118,9 @@ public abstract class AbstractRecorder
     if (m_State == RecorderState.NONE) {
       try {
 	doStart();
-	m_State = RecorderState.RECORDING;
+	m_State           = RecorderState.RECORDING;
+	m_StartTime       = System.currentTimeMillis();
+	m_CumulativePause = 0;
 	return null;
       }
       catch (Exception e) {
@@ -181,7 +194,8 @@ public abstract class AbstractRecorder
     if (m_State == RecorderState.RECORDING) {
       try {
 	doPause();
-	m_State = RecorderState.PAUSED;
+	m_State      = RecorderState.PAUSED;
+	m_StartPause = System.currentTimeMillis();
 	return null;
       }
       catch (Exception e) {
@@ -221,7 +235,8 @@ public abstract class AbstractRecorder
     if (m_State == RecorderState.PAUSED) {
       try {
 	doResume();
-	m_State = RecorderState.RECORDING;
+	m_State            = RecorderState.RECORDING;
+	m_CumulativePause += System.currentTimeMillis() - m_StartPause;
 	return null;
       }
       catch (Exception e) {
