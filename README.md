@@ -12,8 +12,20 @@ These files you can then combine using a
 like [OpenShot](http://openshot.org/), [Kdenlive](https://kdenlive.org/),
 [Shotcut](http://www.shotcut.org/) or [Pitivi](http://pitivi.org/).
 
-Credits:
+## Credits
 
 * Icons by [ionicons](https://www.iconfinder.com/iconsets/ionicons)
 * Webcam handling by [sarxos](https://github.com/sarxos/webcam-capture)
 * Video processing by [xuggler](http://www.xuggle.com/xuggler/)
+
+## Maven
+
+Use the following dependency to include it in your Maven project:
+
+```
+    <dependency>
+      <groupId>com.github.fracpete</groupId>
+      <artifactId>screencast4j</artifactId>
+      <version>0.1.4</version>
+    </dependency>
+```
