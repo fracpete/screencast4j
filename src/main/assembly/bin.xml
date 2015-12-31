@@ -19,7 +19,7 @@
       <directory>${project.basedir}</directory>
       <outputDirectory>/license</outputDirectory>
       <includes>
-        <include>LICENSE.txt</include>
+        <include>LICENSE</include>
       </includes>
     </fileSet>
   </fileSets>
