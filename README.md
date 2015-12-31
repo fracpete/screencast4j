@@ -1,8 +1,12 @@
 # screencast4j
 
-Simple Java frontend for creating screencasts (sound, desktop and webcam).
+Simple Java frontend for creating screencasts by recording the following:
 
-It allows you to record sound, webcam and screen feeds in separate files.
+* sound (WAV)
+* desktop (H.264)
+* webcam (H.264)
+
+Each of the sources, sound, webcam and screen, get stored in separate files.
 These files you can then combine using a 
 [video editing software](https://en.wikipedia.org/wiki/List_of_video_editing_software) 
 like [OpenShot](http://openshot.org/), [Kdenlive](https://kdenlive.org/),
