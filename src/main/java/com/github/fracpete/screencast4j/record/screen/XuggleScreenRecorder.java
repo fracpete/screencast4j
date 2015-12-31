@@ -20,7 +20,6 @@
 
 package com.github.fracpete.screencast4j.record.screen;
 
-import com.github.fracpete.screencast4j.record.RecorderState;
 import com.xuggle.mediatool.IMediaWriter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.xuggler.ICodec;
@@ -41,42 +40,8 @@ public class XuggleScreenRecorder
   /** the format used for capturing the video stream. */
   public final static ICodec.ID CAPTURE_FORMAT = ID.CODEC_ID_H264;
 
-  /** the output format. */
-  protected ID m_Format;
-
   /** the writer in use. */
   protected IMediaWriter m_Writer;
-
-  /**
-   * Initializes the members.
-   */
-  @Override
-  protected void initialize() {
-    super.initialize();
-
-    m_Format = ID.CODEC_ID_MPEG4;
-  }
-
-  /**
-   * Sets the final video format to use.
-   *
-   * @param value	the format
-   */
-  public void setFormat(ID value) {
-    if (m_State == RecorderState.NONE)
-      m_Format = value;
-    else
-      printError("Cannot set video format once recording has commenced!");
-  }
-
-  /**
-   * Returns the final video format.
-   *
-   * @return		the format
-   */
-  public ID getFormat() {
-    return m_Format;
-  }
 
   /**
    * Returns the type of BufferedImage to create.
@@ -128,10 +93,6 @@ public class XuggleScreenRecorder
       m_Writer.close();
     }
     m_Writer = null;
-    // convert into final format
-    if (m_Format != CAPTURE_FORMAT) {
-      // TODO
-    }
   }
 
   /**

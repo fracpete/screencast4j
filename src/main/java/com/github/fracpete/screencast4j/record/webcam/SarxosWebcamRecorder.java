@@ -43,9 +43,6 @@ public class SarxosWebcamRecorder
   /** the format used for capturing the video stream. */
   public final static ICodec.ID CAPTURE_FORMAT = ID.CODEC_ID_H264;
 
-  /** the output format. */
-  protected ID m_Format;
-
   /** the webcam in use. */
   protected Webcam m_Webcam;
 
@@ -145,10 +142,6 @@ public class SarxosWebcamRecorder
       m_Writer.close();
     }
     m_Writer = null;
-    // convert into final format
-    if (m_Format != CAPTURE_FORMAT) {
-      // TODO
-    }
   }
 
   /**
