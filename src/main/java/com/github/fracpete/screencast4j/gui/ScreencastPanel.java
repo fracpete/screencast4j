@@ -777,6 +777,14 @@ public class ScreencastPanel
   }
 
   /**
+   * Minimizes the frame.
+   */
+  protected void minimizeFrame() {
+    if (GUIHelper.getParentFrame(this) != null)
+      GUIHelper.getParentFrame(this).setExtendedState(JFrame.ICONIFIED);
+  }
+
+  /**
    * Creates a new recording.
    */
   public void newRecording() {
@@ -819,10 +827,7 @@ public class ScreencastPanel
     if (m_PanelScreenPreview != null)
       m_PanelScreenPreview.setUpdate(false);
 
-    // minimize frame
-    if (GUIHelper.getParentFrame(this) != null)
-      GUIHelper.getParentFrame(this).setExtendedState(JFrame.ICONIFIED);
-
+    minimizeFrame();
     updateMenu();
   }
 
@@ -830,10 +835,13 @@ public class ScreencastPanel
    * Pauses/resumes the recording
    */
   public void pauseResumeRecording() {
-    if (m_Recorder.isRecording())
+    if (m_Recorder.isRecording()) {
       m_Recorder.pause();
-    else if (m_Recorder.isPaused())
+    }
+    else if (m_Recorder.isPaused()) {
       m_Recorder.resume();
+      minimizeFrame();
+    }
     updateMenu();
   }
 
@@ -868,6 +876,8 @@ public class ScreencastPanel
    * Closes the dialog.
    */
   public void close() {
+    if (m_Recorder.isRecording() || m_Recorder.isPaused())
+      m_Recorder.stop();
     if (m_PanelScreenPreview != null)
       m_PanelScreenPreview.stop();
     if (m_PanelWebcamPreview != null)
