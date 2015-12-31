@@ -48,6 +48,13 @@ public interface Recorder {
   public boolean isRecording();
 
   /**
+   * Indicates whether recorder can be paused and resumed.
+   *
+   * @return		true if pause/resume supported
+   */
+  public boolean canPauseAndResume();
+
+  /**
    * Pauses the recording.
    *
    * @return		null if OK, otherwise error message

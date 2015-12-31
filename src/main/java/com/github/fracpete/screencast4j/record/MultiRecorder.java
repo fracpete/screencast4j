@@ -113,6 +113,21 @@ public class MultiRecorder
   }
 
   /**
+   * Indicates whether recorder can be paused and resumed.
+   *
+   * @return		true if pause/resume supported
+   */
+  public boolean canPauseAndResume() {
+    boolean	result;
+
+    result = true;
+    for (Recorder rec: m_Recorders)
+      result = rec.canPauseAndResume() && result;
+
+    return result;
+  }
+
+  /**
    * Pauses the recording process.
    *
    * @throws Exception	if pausing fails

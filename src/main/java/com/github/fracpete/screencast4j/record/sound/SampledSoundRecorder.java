@@ -114,23 +114,30 @@ public class SampledSoundRecorder
   }
 
   /**
-   * Pauses the recording process.
+   * Indicates whether recorder can be paused and resumed.
+   *
+   * @return		true if pause/resume supported
+   */
+  public boolean canPauseAndResume() {
+    return false;
+  }
+
+  /**
+   * Does nothing.
    *
    * @throws Exception	if pausing fails
    */
   @Override
   protected void doPause() throws Exception {
-    m_TargetDataLine.stop();
   }
 
   /**
-   * Resumes the recording process.
+   * Does nothing.
    *
    * @throws Exception	if resuming fails
    */
   @Override
   protected void doResume() throws Exception {
-    m_TargetDataLine.start();
   }
 
   /**

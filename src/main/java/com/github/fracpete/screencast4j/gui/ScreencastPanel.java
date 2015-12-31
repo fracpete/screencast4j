@@ -591,7 +591,7 @@ public class ScreencastPanel
       return;
 
     m_MenuItemRecord.setEnabled(!m_Recorder.isPaused() && !m_Recorder.isRecording());
-    m_MenuItemPauseResume.setEnabled(m_Recorder.isPaused() || m_Recorder.isRecording());
+    m_MenuItemPauseResume.setEnabled(m_Recorder.canPauseAndResume() && (m_Recorder.isPaused() || m_Recorder.isRecording()));
     if (m_Recorder.isPaused()) {
       m_MenuItemPauseResume.setText("Resume");
       m_MenuItemPauseResume.setIcon(GUIHelper.getIcon("resume.png"));

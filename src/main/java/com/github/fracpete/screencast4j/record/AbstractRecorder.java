@@ -179,6 +179,15 @@ public abstract class AbstractRecorder
   }
 
   /**
+   * Indicates whether recorder can be paused and resumed.
+   *
+   * @return		true if pause/resume supported
+   */
+  public boolean canPauseAndResume() {
+    return true;
+  }
+
+  /**
    * Pauses the recording process.
    *
    * @throws Exception	if pausing fails
