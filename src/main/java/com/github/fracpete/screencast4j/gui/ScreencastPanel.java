@@ -590,6 +590,14 @@ public class ScreencastPanel
 
     m_MenuItemRecord.setEnabled(!m_Recorder.isPaused() && !m_Recorder.isRecording());
     m_MenuItemPauseResume.setEnabled(m_Recorder.isPaused() || m_Recorder.isRecording());
+    if (m_Recorder.isPaused()) {
+      m_MenuItemPauseResume.setText("Resume");
+      m_MenuItemPauseResume.setIcon(GUIHelper.getIcon("resume.png"));
+    }
+    else {
+      m_MenuItemPauseResume.setText("Pause");
+      m_MenuItemPauseResume.setIcon(GUIHelper.getIcon("pause.png"));
+    }
     m_MenuItemStop.setEnabled(m_Recorder.isPaused() || m_Recorder.isRecording());
   }
 
@@ -860,8 +868,10 @@ public class ScreencastPanel
    * Closes the dialog.
    */
   public void close() {
-    m_PanelScreenPreview.stop();
-    m_PanelWebcamPreview.stop();
+    if (m_PanelScreenPreview != null)
+      m_PanelScreenPreview.stop();
+    if (m_PanelWebcamPreview != null)
+      m_PanelWebcamPreview.stop();
     GUIHelper.closeParent(this);
   }
 
