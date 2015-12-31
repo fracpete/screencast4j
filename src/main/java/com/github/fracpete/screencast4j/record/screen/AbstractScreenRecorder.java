@@ -274,26 +274,6 @@ public abstract class AbstractScreenRecorder
   }
 
   /**
-   * Pauses the recording process.
-   *
-   * @throws Exception	if pausing fails
-   */
-  @Override
-  protected void doPause() throws Exception {
-    // does nothing
-  }
-
-  /**
-   * Resumes the recording process.
-   *
-   * @throws Exception	if resuming fails
-   */
-  @Override
-  protected void doResume() throws Exception {
-    // does nothing
-  }
-
-  /**
    * Writes the frame out to disk.
    *
    * @param frame	the frame

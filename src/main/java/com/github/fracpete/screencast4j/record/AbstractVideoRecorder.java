@@ -91,6 +91,26 @@ public abstract class AbstractVideoRecorder
   }
 
   /**
+   * Pauses the recording process.
+   *
+   * @throws Exception	if pausing fails
+   */
+  @Override
+  protected void doPause() throws Exception {
+    // do nothing
+  }
+
+  /**
+   * Resumes the recording process.
+   *
+   * @throws Exception	if resuming fails
+   */
+  @Override
+  protected void doResume() throws Exception {
+    // do nothing
+  }
+
+  /**
    * Returns the type of BufferedImage to create.
    *
    * @return		the type

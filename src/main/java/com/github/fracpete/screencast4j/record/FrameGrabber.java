@@ -34,16 +34,12 @@ public class FrameGrabber
   /** whether frame grabbing is active. */
   protected boolean m_Running;
 
-  /** whether frame grabbing is paused. */
-  protected boolean m_Paused;
-
   /**
    * Initializes the runnable.
    */
   public FrameGrabber(VideoRecorder owner) {
     m_Owner   = owner;
     m_Running = false;
-    m_Paused  = false;
   }
 
   /**
@@ -61,7 +57,7 @@ public class FrameGrabber
 
     while (m_Running) {
       // idle while paused
-      if (m_Paused) {
+      if (m_Owner.isPaused()) {
 	try {
 	  synchronized (this) {
 	    wait(50);
@@ -113,31 +109,5 @@ public class FrameGrabber
    */
   public void stop() {
     m_Running = false;
-    m_Paused  = false;
-  }
-
-  /**
-   * Pauses the frame grabbing (if running).
-   */
-  public void pause() {
-    if (m_Running)
-      m_Paused = true;
-  }
-
-  /**
-   * Resumes the frame grabbing (if paused)
-   */
-  public void resume() {
-    if (m_Paused)
-      m_Paused = false;
-  }
-
-  /**
-   * Returns whether the frame grabbing is paused.
-   *
-   * @return		true if paused
-   */
-  public boolean isPaused() {
-    return m_Paused;
   }
 }

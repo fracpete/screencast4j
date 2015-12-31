@@ -41,7 +41,7 @@ public class SarxosWebcamRecorder
   extends AbstractWebcamRecorder {
 
   /** the format used for capturing the video stream. */
-  public final static ICodec.ID CAPTURE_FORMAT = ICodec.ID.CODEC_ID_MPEG2VIDEO;
+  public final static ICodec.ID CAPTURE_FORMAT = ID.CODEC_ID_H264;
 
   /** the output format. */
   protected ID m_Format;
@@ -71,7 +71,7 @@ public class SarxosWebcamRecorder
    * @return		the extension (no dot)
    */
   public String getDefaultExtension() {
-    return "mpeg";
+    return "mp4";
   }
 
   /**

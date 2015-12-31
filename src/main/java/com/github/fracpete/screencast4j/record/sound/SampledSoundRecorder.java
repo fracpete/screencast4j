@@ -73,7 +73,8 @@ public class SampledSoundRecorder
       m_DataLineInfo = new DataLine.Info(TargetDataLine.class, m_AudioFormat);
       try {
 	m_TargetDataLine = (TargetDataLine) AudioSystem.getLine(m_DataLineInfo);
-	m_TargetDataLine.open(m_AudioFormat);      }
+	m_TargetDataLine.open(m_AudioFormat);
+      }
       catch (Exception e) {
 	return "Unable to get recording line: " + Utils.throwableToString(e);
       }

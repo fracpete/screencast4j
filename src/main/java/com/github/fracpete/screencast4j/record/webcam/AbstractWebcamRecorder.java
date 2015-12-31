@@ -85,24 +85,4 @@ public abstract class AbstractWebcamRecorder
   public Dimension getSize() {
     return m_Size;
   }
-
-  /**
-   * Pauses the recording process.
-   *
-   * @throws Exception	if pausing fails
-   */
-  @Override
-  protected void doPause() throws Exception {
-    // does nothing
-  }
-
-  /**
-   * Resumes the recording process.
-   *
-   * @throws Exception	if resuming fails
-   */
-  @Override
-  protected void doResume() throws Exception {
-    // does nothing
-  }
 }
