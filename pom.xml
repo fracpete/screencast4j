@@ -122,8 +122,8 @@
   </properties>
 
   <scm>
-    <connection>scm:git:https://github.com/fracpete/screencast4j</connection>
-    <developerConnection>scm:git:https://github.com/fracpete/screencast4j</developerConnection>
+    <connection>scm:git:ssh://git@github.com/fracpete/screencast4j</connection>
+    <developerConnection>scm:git:ssh://git@github.com/fracpete/screencast4j</developerConnection>
     <url>https://github.com/fracpete/screencast4j</url>
     <tag>HEAD</tag>
   </scm>
