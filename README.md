@@ -12,6 +12,14 @@ These files you can then combine using a
 like [OpenShot](http://openshot.org/), [Kdenlive](https://kdenlive.org/),
 [Shotcut](http://www.shotcut.org/) or [Pitivi](http://pitivi.org/).
 
+## Usage
+
+Use the following class to get a simple user interface:
+
+```
+com.github.fracpete.screencast4j.gui.Main
+```
+
 ## Credits
 
 * Icons by [ionicons](https://www.iconfinder.com/iconsets/ionicons)
@@ -26,6 +34,6 @@ Use the following dependency to include it in your Maven project:
     <dependency>
       <groupId>com.github.fracpete</groupId>
       <artifactId>screencast4j</artifactId>
-      <version>0.1.4</version>
+      <version>0.1.5</version>
     </dependency>
 ```
