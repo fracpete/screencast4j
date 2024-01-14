@@ -12,3 +12,5 @@ How to make a release
   ```
   git push
   ````
+
+* Update Maven artifact version in [README.md](README.md)
