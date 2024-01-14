@@ -21,6 +21,8 @@
 
 package com.github.fracpete.screencast4j.core;
 
+import nz.ac.waikato.cms.core.OS;
+
 import java.io.File;
 
 /**
