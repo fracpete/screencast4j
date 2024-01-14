@@ -5,7 +5,7 @@
 
   <groupId>com.github.fracpete</groupId>
   <artifactId>screencast4j</artifactId>
-  <version>0.1.5</version>
+  <version>0.1.6-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <parent>
@@ -125,7 +125,7 @@
     <connection>scm:git:ssh://git@github.com/fracpete/screencast4j</connection>
     <developerConnection>scm:git:ssh://git@github.com/fracpete/screencast4j</developerConnection>
     <url>https://github.com/fracpete/screencast4j</url>
-    <tag>screencast4j-0.1.5</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <build>
