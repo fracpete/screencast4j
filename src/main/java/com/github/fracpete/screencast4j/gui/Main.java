@@ -15,12 +15,15 @@
 
 /*
  * Main.java
- * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
+ * Copyright (C) 2015-2024 FracPete (fracpete at gmail dot com)
  *
  */
 
 package com.github.fracpete.screencast4j.gui;
 
+import nz.ac.waikato.cms.gui.core.BaseFrame;
+
+import javax.swing.JFrame;
 import java.awt.BorderLayout;
 
 /**
@@ -42,6 +45,8 @@ public class Main
     super.initGUI();
 
     setTitle("screencast4j");
+    setIconImage(GUIHelper.getIcon("monitor.png").getImage());
+    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     getContentPane().setLayout(new BorderLayout());
     m_PanelScreencast = new ScreencastPanel();
     getContentPane().add(m_PanelScreencast, BorderLayout.CENTER);

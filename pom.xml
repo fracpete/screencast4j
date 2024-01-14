@@ -38,9 +38,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.github.fracpete</groupId>
-      <artifactId>jfilechooser-bookmarks</artifactId>
-      <version>0.1.9</version>
+      <groupId>com.github.waikato</groupId>
+      <artifactId>fcms-widgets</artifactId>
+      <version>0.0.25</version>
     </dependency>
 
     <dependency>

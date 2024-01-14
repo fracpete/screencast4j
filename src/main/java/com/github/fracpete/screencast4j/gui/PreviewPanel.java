@@ -15,12 +15,13 @@
 
 /*
  * PreviewPanel.java
- * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
+ * Copyright (C) 2015-2024 FracPete (fracpete at gmail dot com)
  */
 
 package com.github.fracpete.screencast4j.gui;
 
 import com.github.fracpete.screencast4j.record.VideoRecorder;
+import nz.ac.waikato.cms.gui.core.BasePanel;
 
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
@@ -29,7 +30,6 @@ import java.awt.image.BufferedImage;
  * Ancestor for preview panels.
  *
  * @author FracPete (fracpete at waikato dot ac dot nz)
- * @version $Revision$
  */
 public class PreviewPanel
   extends BasePanel {

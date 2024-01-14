@@ -15,7 +15,7 @@
 
 /*
  * ScreencastPanel.java
- * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
+ * Copyright (C) 2015-2024 FracPete (fracpete at gmail dot com)
  *
  */
 
@@ -30,6 +30,8 @@ import com.github.fracpete.screencast4j.record.sound.SoundRecorder;
 import com.github.fracpete.screencast4j.record.webcam.SarxosWebcamRecorder;
 import com.github.fracpete.screencast4j.record.webcam.WebcamRecorder;
 import com.github.sarxos.webcam.Webcam;
+import nz.ac.waikato.cms.gui.core.BaseDirectoryChooser;
+import nz.ac.waikato.cms.gui.core.BasePanel;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;

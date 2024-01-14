@@ -15,10 +15,12 @@
 
 /*
  * ImagePanel.java
- * Copyright (C) 2015 FracPete (fracpete at gmail dot com)
+ * Copyright (C) 2015-2024 FracPete (fracpete at gmail dot com)
  */
 
 package com.github.fracpete.screencast4j.gui;
+
+import nz.ac.waikato.cms.gui.core.BasePanel;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
