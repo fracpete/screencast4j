@@ -3,15 +3,14 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.fracpete</groupId>
   <artifactId>screencast4j</artifactId>
   <version>0.1.6-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
+    <groupId>com.github.fracpete</groupId>
+    <artifactId>central-portal-parent</artifactId>
+    <version>0.0.2</version>
   </parent>
 
   <name>screencast4j</name>
@@ -40,7 +39,7 @@
     <dependency>
       <groupId>com.github.waikato</groupId>
       <artifactId>fcms-widgets</artifactId>
-      <version>0.0.25</version>
+      <version>0.0.26</version>
     </dependency>
 
     <dependency>
@@ -136,8 +135,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.0</version>
           <configuration>
-            <source>1.8</source>
-            <target>1.8</target>
+            <source>9</source>
+            <target>9</target>
           </configuration>
         </plugin>
 
@@ -153,11 +152,12 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.10.3</version>
+          <version>3.11.2</version>
           <configuration>
             <show>protected</show>
             <nohelp>true</nohelp>
-            <additionalparam>-Xdoclint:none</additionalparam>
+            <doclint>none</doclint>
+            <additionalJOption>--no-module-directories</additionalJOption>
           </configuration>
         </plugin>
       </plugins>
